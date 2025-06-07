@@ -13,10 +13,14 @@
         <div class="sideBar">
             <div class="projects">
                 <span> Projects</span>
-                <button>Add</button>
+                <button class="showForm">Add</button>
+                <form id="project-form" style="display:none;">
+                    <input type="text" id="project-name" placeholder="Project name" required />
+                    <button type="submit">Submit</button>
+                  </form>
             </div>
             <div>
-                
+                <div id="project-list"></div>
             </div>
         </div>
         <div class="mainBar">
