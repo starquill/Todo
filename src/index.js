@@ -1,24 +1,29 @@
-import {Project} from "./create";
-import {render} from './render';
-import {Todo} from "./create";
+import { Project } from "./create";
+import { render } from "./render";
+import { Todo } from "./create";
 
-import './style.css';
+import "./style.css";
 
-const showForm=document.querySelector(".showForm");
-const form=document.getElementById("project-form");
-const formText=document.getElementById("project-name");
-const projects=[];
+const showForm = document.querySelector(".showForm");
+const form = document.getElementById("project-form");
+const formText = document.getElementById("project-name");
+const sub = document.querySelector(".submit");
+const projects = [];
 
-showForm.addEventListener("click",()=>{
-    form.style.display="flex";
+showForm.addEventListener("click", () => {
+  form.style.display = "flex";
+  showForm.style.display = "none";
 });
-form.addEventListener("submit",(e)=>{
-    e.preventDefault();
-    const input=formText.value.trim();
-    if(input==='')
-        return;
-    formText.value='';
-    const newProject=new Project(input);
-    render(input);
-    projects.push(newProject);
+sub.addEventListener("click",()=>{
+  form.style.display = "none";
+  showForm.style.display = "flex";
+});
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const input = formText.value.trim();
+  if (input === "") return;
+  formText.value = "";
+  const newProject = new Project(input);
+  render(input);
+  projects.push(newProject);
 });
