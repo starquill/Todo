@@ -1,5 +1,6 @@
 export class Project {
   constructor(name) {
+    this.id=Date.now().toString();
     this.name = name;
     this.todo = [];
   }
@@ -8,10 +9,9 @@ export class Project {
   }
 }
 export class Todo {
-  constructor(title, description, priority, date) {
+  constructor(title, priority, date) {
     this.title = title;
-    this.description = description;
     this.priority = priority;
-    this.date = date;
+    this.date = Date.now().toString();
   }
 }
