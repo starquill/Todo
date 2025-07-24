@@ -10,6 +10,7 @@ const formText = document.getElementById("project-name");
 const projectListDiv = document.getElementById("project-list");
 const sub = document.querySelector(".submit");
 const projects = [];
+let selectedProjectId=null;
 
 showForm.addEventListener("click", () => {
   form.style.display = "flex";
@@ -26,5 +27,12 @@ form.addEventListener("submit", (e) => {
   formText.value = '';
   const newProject = new Project(input);
   projects.push(newProject);
-  render(projectListDiv, projects);
+  render(projectListDiv,projects,selectedProjectId);
 });
+
+projectListDiv.addEventListener('click',(e)=>{
+  if(e.target.classList.contains('project-item')){
+    selectedProjectId=e.target.dataset.projectId;
+    render(projectListDiv,projects,selectedProjectId);
+  }
+})

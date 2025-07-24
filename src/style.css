@@ -29,3 +29,18 @@ h1 {
 .mainBar {
   flex: 4;
 }
+
+.project-item {
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+project-item:hover {
+  background-color: #f0f0f0; 
+}
+.active-project {
+  background-color: lavenderblush; 
+  font-weight: bold;
+}
+
