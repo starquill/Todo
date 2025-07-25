@@ -85,3 +85,30 @@ project-item:hover {
 .delete_todo_btn:hover{
   color: #ff7675;
 }
+
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 15px;
+}
+
+.project-header h2 {
+  margin: 0; 
+}
+
+.delete-project-btn {
+  background-color: #ff7675; 
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.delete-project-btn:hover {
+  background-color: #d63031;
+}

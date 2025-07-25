@@ -61,6 +61,11 @@ function render(){
     const projectTitle=document.createElement('h2');
     projectTitle.textContent= selectedProject.name;
 
+    const projectHeader = document.createElement('div');
+    const deleteProjectBtn = document.createElement('button');
+    projectHeader.append(projectTitle, deleteProjectBtn);
+
+
     const todoList=document.createElement('ul');
     todoList.id='todo-list';
 
@@ -78,7 +83,7 @@ function render(){
 
       const deleteBtn= document.createElement('button');
       deleteBtn.classList.add('delete_todo_btn');
-      deleteBtn.innerHTML='&times';
+      deleteBtn.innerHTML='&times;';
 
       todoItem.append(priorityDiv,textDiv,deleteBtn);
       todoList.appendChild(todoItem);
@@ -95,7 +100,7 @@ function render(){
     </select>
     <button type="submit" class=submit>Add Todo</button>
     `;
-    mainBar.append(projectTitle, todoList, newTodoForm);
+    mainBar.append(projectHeader, todoList, newTodoForm);
   }
   else{
     const welcomeMessage=document.createElement('p');
@@ -105,15 +110,16 @@ function render(){
 }
 
 mainBar.addEventListener('click',(e)=>{
-  if(e.target.classList.contains('delete_todo_btn'))
+  if(e.target.classList.contains('delete_todo_btn')){
 
     const selectedProject=projects.find(project => project.id === selectedProjectId)
     if(!selectedProject)
       return;
 
-    const todoId=e.target.closest('.todo_item').dataset.id;
+    const todoId=e.target.closest('.todo-item').dataset.id;
     selectedProject.todo=selectedProject.todo.filter(todo => todo.id!=todoId);
     render();
+}
 });
 
 render();
