@@ -1,9 +1,10 @@
 import { Project } from "./create";
-import { render } from "./render";
+import { renderProjects } from "./render";
 import { Todo } from "./create";
 
 import "./style.css";
 
+const mainBar = document.querySelector('.mainBar');
 const showForm = document.querySelector(".showForm");
 const form = document.getElementById("project-form");
 const formText = document.getElementById("project-name");
@@ -27,12 +28,29 @@ form.addEventListener("submit", (e) => {
   formText.value = '';
   const newProject = new Project(input);
   projects.push(newProject);
-  render(projectListDiv,projects,selectedProjectId);
+  render();
 });
 
 projectListDiv.addEventListener('click',(e)=>{
   if(e.target.classList.contains('project-item')){
     selectedProjectId=e.target.dataset.projectId;
-    render(projectListDiv,projects,selectedProjectId);
+    render();
   }
 })
+
+function render(){
+  renderProjects(projectListDiv,projects,selectedProjectId);
+  const selectedProject=projects.find(project=> project.id === selectedProjectId)
+  mainBar='';
+  if(selectedProject){
+    const projectTitle=document.createElement('h2');
+    projectTitle.textContent= selectedProject.name
+  }
+  else{
+    const welcomeMessage=document.createElement('p');
+    welcomeMessage.textContent='Select a project to see its tasks, or add a new one!';
+    mainBar.appendChild(welcomeMessage);
+  }
+}
+
+render();
