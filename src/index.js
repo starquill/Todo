@@ -10,9 +10,13 @@ const form = document.getElementById("project-form");
 const formText = document.getElementById("project-name");
 const projectListDiv = document.getElementById("project-list");
 const sub = document.querySelector(".submit");
-const projects = [];
-let selectedProjectId=null;
+let projects= JSON.parse(localStorage.getItem('my-todo')) || [];
+let selectedProjectId= localStorage.getItem('my-todo.selectedProjectId');
 
+function save(){
+localStorage.setItem('my-todo',JSON.stringify(projects));
+localStorage.setItem('my-todo.selectedProjectId',selectedProjectId);
+}
 
 
 showForm.addEventListener("click", () => {
@@ -29,13 +33,16 @@ form.addEventListener("submit", (e) => {
   if (input === '') return;
   formText.value = '';
   const newProject = new Project(input);
+  selectedProjectId = newProject.id;
   projects.push(newProject);
+  save();
   render();
 });
 
 projectListDiv.addEventListener('click',(e)=>{
   if(e.target.classList.contains('project-item')){
     selectedProjectId=e.target.dataset.projectId;
+    save();
     render();
   }
 })
@@ -48,6 +55,7 @@ mainBar.addEventListener('submit',(e)=>{
     const newTodo=new Todo(todoTitle,priority);
     const selectedProject=projects.find(project=>project.id===selectedProjectId);
     selectedProject.todo.push(newTodo);
+    save();
     render();
   }
 });
@@ -76,11 +84,11 @@ function render(){
 
     selectedProject.todo.forEach(todo => {
       const todoItem = document.createElement('li');
-      todoItem.classList.add('todo-item');
+      todoItem.classList.add('todo-item',todo.priority);
       todoItem.dataset.id=todo.id;
 
       const priorityDiv=document.createElement('div');
-      priorityDiv.classList.add('priority',todo.priority);
+      priorityDiv.classList.add('priority');
 
       const textDiv=document.createElement('div');
       textDiv.classList.add('text');
@@ -123,11 +131,13 @@ mainBar.addEventListener('click',(e)=>{
 
     const todoId=e.target.closest('.todo-item').dataset.id;
     selectedProject.todo=selectedProject.todo.filter(todo => todo.id!=todoId);
+    save();
     render();
 }
-  if(e.target.classList.contains('delete_project_btn')){
+  if(e.target.classList.contains('delete-project-btn')){
     projects=projects.filter(project=> project.id!=selectedProjectId);
     selectedProjectId=null;
+    save();
     render();
   }
 });

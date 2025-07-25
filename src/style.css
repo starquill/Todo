@@ -1,11 +1,13 @@
 html {
   margin: 0%;
+  font-family: system-ui,sans-serif;
 }
 body {
   margin: 0%;
-  height: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #f4f7f9;
 }
 h1 {
   text-align: center;
@@ -14,60 +16,87 @@ h1 {
 .content {
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
+  max-width: 1500px; 
+  margin: 20px auto;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 .sideBar {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: bisque;
+  background-color: white;
+  padding: 20px;
 }
 .projects {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 15px;
+  font-weight: bold;
 }
 .mainBar {
   flex: 4;
+  background-color: white;
+  padding: 20px 30px;
 }
 
 .project-item {
-  padding: 10px;
+  padding: 15px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 5px 0;
 }
-project-item:hover {
-  background-color: #f0f0f0; 
+.project-item:hover {
+  background-color: #eef5fc;
 }
 .active-project {
-  background-color: lavenderblush; 
-  font-weight: bold;
+  background-color: #4a90e2;
+  color: white;
+  font-weight: 600;
 }
 
 #todo-list{
   list-style: none;
   padding: 10px;
   margin: 20px 0;
+  flex-grow: 1;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  flex-grow: 1;
+  
 }
 
 .todo-item{
   display: flex;
   align-items: center;
-  padding: 10px 5px;
-  border-bottom: 1px solid #eee;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 8px;
+  background-color: white;
+  justify-content: space-between;
+  border-radius: 8px;
+  min-height: 120px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  border-top: 5px solid;
 }
 
 .priority{
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  margin-right: 15 px;
-  flex-shrink: 0;
+  display: none;
 }
 
-.priority.high { background-color: #ff7675; }
-.priority.medium { background-color: #fdcb6e; }
-.priority.low { background-color: #55efc4; }
+.todo-item.high { border-top-color: #ff7675; }
+.todo-item.medium { border-top-color: #fdcb6e; }
+.todo-item.low { border-top-color: #55efc4; }
 
 .text{
   flex-grow: 1;
@@ -111,4 +140,24 @@ project-item:hover {
 
 .delete-project-btn:hover {
   background-color: #d63031;
+}
+
+.showForm {
+  background-color: #4a90e2; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  border-radius: 8px; 
+  width: 50px; 
+  height: 36px; 
+  font-size: 1rem; 
+  font-weight: lighter;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.showForm:hover {
+  transform: scale(1.1); 
 }
