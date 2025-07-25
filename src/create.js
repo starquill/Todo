@@ -9,6 +9,6 @@ export class Todo {
   constructor(title, priority, date) {
     this.title = title;
     this.priority = priority;
-    this.date = Date.now().toString();
+    this.id = Date.now().toString();
   }
 }

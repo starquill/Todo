@@ -1,5 +1,5 @@
 import { Project } from "./create";
-import { render } from "./render";
+import { renderProjects } from "./render";
 import { Todo } from "./create";
 
 import "./style.css";
@@ -50,6 +50,70 @@ mainBar.addEventListener('submit',(e)=>{
     selectedProject.todo.push(newTodo);
     render();
   }
+});
+
+
+function render(){
+  renderProjects(projectListDiv,projects,selectedProjectId);
+  const selectedProject=projects.find(project=> project.id === selectedProjectId)
+  mainBar.innerHTML='';
+  if(selectedProject){
+    const projectTitle=document.createElement('h2');
+    projectTitle.textContent= selectedProject.name;
+
+    const todoList=document.createElement('ul');
+    todoList.id='todo-list';
+
+    selectedProject.todo.forEach(todo => {
+      const todoItem = document.createElement('li');
+      todoItem.classList.add('todo-item');
+      todoItem.dataset.id=todo.id;
+
+      const priorityDiv=document.createElement('div');
+      priorityDiv.classList.add('priority',todo.priority);
+
+      const textDiv=document.createElement('div');
+      textDiv.classList.add('text');
+      textDiv.textContent=todo.title;
+
+      const deleteBtn= document.createElement('button');
+      deleteBtn.classList.add('delete_todo_btn');
+      deleteBtn.innerHTML='&times';
+
+      todoItem.append(priorityDiv,textDiv,deleteBtn);
+      todoList.appendChild(todoItem);
+    });
+
+    const newTodoForm=document.createElement('form');
+    newTodoForm.id='new_todo_form';
+    newTodoForm.innerHTML=`
+    <input type="text" name="todo-title" placeholder="New task" required/>
+    <select name="priority">
+      <option value="high">High Priority</option>
+      <option value="medium">Medium Priority</option>
+      <option value="low">Low Priority</option>
+    </select>
+    <button type="submit" class=submit>Add Todo</button>
+    `;
+    mainBar.append(projectTitle, todoList, newTodoForm);
+  }
+  else{
+    const welcomeMessage=document.createElement('p');
+    welcomeMessage.textContent='Select a project to see its tasks, or add a new one!';
+    mainBar.appendChild(welcomeMessage);
+  }
+}
+
+mainBar.addEventListener('click',(e)=>{
+  if(e.target.classList.contains('delete_todo_btn'))
+
+    const selectedProject=projects.find(project => project.id === selectedProjectId)
+    if(!selectedProject)
+      return;
+
+    const todoId=e.target.closest('.todo_item').dataset.id;
+    selectedProject.todo=selectedProject.todo.filter(todo => todo.id!=todoId);
+    render();
 });
 
 render();

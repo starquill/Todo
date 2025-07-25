@@ -1,4 +1,4 @@
-function renderProjects(container,projects,selectedId) {
+export function renderProjects(container,projects,selectedId) {
   container.innerHTML='';
   for( let i=0;i<projects.length;i++){
     const newDiv= document.createElement('div');
@@ -23,12 +23,12 @@ export function render(){
     const todoList=document.createElement('ul');
     todoList.id='todo-list';
 
-    selectedProject.todo.array.forEach(todo => {
+    selectedProject.todo.forEach(todo => {
       const todoItem = document.createElement('li');
       todoItem.classList.add('todo-item');
 
       const priorityDiv=document.createElement('div');
-      priorityDiv.classList.add(priority,todo.priority);
+      priorityDiv.classList.add('priority',todo.priority);
 
       const textDiv=document.createElement('div');
       textDiv.classList.add('text');
