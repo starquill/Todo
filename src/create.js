@@ -4,9 +4,6 @@ export class Project {
     this.name = name;
     this.todo = [];
   }
-  addTodo(todo) {
-    this.todo.push(todo);
-  }
 }
 export class Todo {
   constructor(title, priority, date) {

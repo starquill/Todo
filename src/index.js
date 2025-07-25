@@ -1,5 +1,5 @@
 import { Project } from "./create";
-import { renderProjects } from "./render";
+import { render } from "./render";
 import { Todo } from "./create";
 
 import "./style.css";
@@ -12,6 +12,8 @@ const projectListDiv = document.getElementById("project-list");
 const sub = document.querySelector(".submit");
 const projects = [];
 let selectedProjectId=null;
+
+
 
 showForm.addEventListener("click", () => {
   form.style.display = "flex";
@@ -37,20 +39,17 @@ projectListDiv.addEventListener('click',(e)=>{
     render();
   }
 })
-
-function render(){
-  renderProjects(projectListDiv,projects,selectedProjectId);
-  const selectedProject=projects.find(project=> project.id === selectedProjectId)
-  mainBar='';
-  if(selectedProject){
-    const projectTitle=document.createElement('h2');
-    projectTitle.textContent= selectedProject.name
+mainBar.addEventListener('submit',(e)=>{
+  if(e.target.id === 'new_todo_form'){
+    e.preventDefault();
+    const todoTitle=e.target.elements['todo-title'].value.trim();
+    const priority=e.target.elements['priority'].value;
+    if(todoTitle==='')return;
+    const newTodo=new Todo(todoTitle,priority);
+    const selectedProject=projects.find(project=>project.id===selectedProjectId);
+    selectedProject.todo.push(newTodo);
+    render();
   }
-  else{
-    const welcomeMessage=document.createElement('p');
-    welcomeMessage.textContent='Select a project to see its tasks, or add a new one!';
-    mainBar.appendChild(welcomeMessage);
-  }
-}
+});
 
 render();
