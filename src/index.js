@@ -58,11 +58,16 @@ function render(){
   const selectedProject=projects.find(project=> project.id === selectedProjectId)
   mainBar.innerHTML='';
   if(selectedProject){
-    const projectTitle=document.createElement('h2');
-    projectTitle.textContent= selectedProject.name;
-
     const projectHeader = document.createElement('div');
+    projectHeader.classList.add('project-header');
+
+    const projectTitle = document.createElement('h2');
+    projectTitle.textContent = selectedProject.name;
+
     const deleteProjectBtn = document.createElement('button');
+    deleteProjectBtn.classList.add('delete-project-btn');
+    deleteProjectBtn.textContent = 'Delete Project';
+    
     projectHeader.append(projectTitle, deleteProjectBtn);
 
 
@@ -120,6 +125,11 @@ mainBar.addEventListener('click',(e)=>{
     selectedProject.todo=selectedProject.todo.filter(todo => todo.id!=todoId);
     render();
 }
+  if(e.target.classList.contains('delete_project_btn')){
+    projects=projects.filter(project=> project.id!=selectedProjectId);
+    selectedProjectId=null;
+    render();
+  }
 });
 
 render();
